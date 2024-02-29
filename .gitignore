@@ -1,0 +1,8 @@
+/__pycache__
+/venvIntell
+/.env
+/client_secrets.json
+/credentials.json
+/creds.txt
+/service_account.json
+/token.json

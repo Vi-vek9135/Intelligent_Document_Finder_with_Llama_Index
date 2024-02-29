@@ -1,0 +1,12 @@
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+PyDrive
+llama-index
+llama-index-readers-google
+streamlit
+llama-index-llms-openai
+llama-index-extractors-entity
+python-dotenv
+pydrive
+docx2txt
