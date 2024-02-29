@@ -40,7 +40,32 @@
 
 
 
-#This is for download files from google drive in local directory
+# #This is for download files from google drive in local directory
+
+# import os
+# from pydrive.auth import GoogleAuth
+# from pydrive.drive import GoogleDrive
+
+# gauth = GoogleAuth()
+# drive = GoogleDrive(gauth)
+
+# folder = '1uCxh7jmHBzU0ZUNix901qq2qkjkYHJPL'
+
+
+# # Download files
+# file_list = drive.ListFile({'q' : f"'{folder}' in parents and trashed=false"}).GetList()
+# for index, file in enumerate(file_list):
+# 	print(index+1, 'file downloaded : ', file['title'])
+# 	file.GetContentFile(file['title'])
+
+
+
+
+
+
+
+
+# This is for uploading the files to the google drive by folder id.
 
 import os
 from pydrive.auth import GoogleAuth
@@ -51,9 +76,19 @@ drive = GoogleDrive(gauth)
 
 folder = '1uCxh7jmHBzU0ZUNix901qq2qkjkYHJPL'
 
+# file1 = drive.CreateFile({'parents' : [{'id' : folder}], 'title' : 'hello2.txt'})
+# file1.SetContentString('Hello world!, this is my second file')
+# file1.Upload()
 
-# Download files
-file_list = drive.ListFile({'q' : f"'{folder}' in parents and trashed=false"}).GetList()
-for index, file in enumerate(file_list):
-	print(index+1, 'file downloaded : ', file['title'])
-	file.GetContentFile(file['title'])
+
+
+
+
+# Upload files
+directory = "D:/Vivek_Roushan/docs"
+
+for f in os.listdir(directory):
+	filename = os.path.join(directory, f)
+	gfile = drive.CreateFile({'parents' : [{'id' : folder}], 'title' : f})
+	gfile.SetContentFile(filename)
+	gfile.Upload()
