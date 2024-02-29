@@ -1,3 +1,1 @@
 # Intelligent_Document_Finder_with_Llama_Index
-# Intelligent_Document_Finder_with_Llama_Index
-# Intelligent_Document_Finder_with_Llama_Index
