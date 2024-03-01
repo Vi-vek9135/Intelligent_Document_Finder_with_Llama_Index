@@ -10,3 +10,7 @@ llama-index-extractors-entity
 python-dotenv
 pydrive
 docx2txt
+torch 
+transformers 
+python-pptx 
+Pillow
