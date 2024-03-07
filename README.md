@@ -38,41 +38,6 @@ https://drive.google.com/drive/folders/1hDOR39f6XbWp-Mo9KzZamUOXBBGFGpXd?usp=sha
 https://github.com/Vi-vek9135/Project
 
 
-Firstly, I thoroughly reviewed the project and understand what needs to be done and how to execute it. Afterward, I broke down the project into small tasks, which I am detailing stepwise.
-Setup instructions:
-1.	First clone the repo then create virtual environment in same directory.
-2.	Create a conda virtual environment of python version 3.10.0
-conda create -p venvIntell python==3.10.0
-conda activate path/of/venvIntell
-
-3.	Install the requirements.txt by using 
-pip install -r requirements.txt
-
-4.	Please create .env file to store openai API KEY
-5.	Please change the folder_id of Automate_Data_Storage_and_Indexing.py in line no. 35 
-docs = load_data(folder_id="1uCxh7jmHBzU0ZUNix901qq2qkjkYHJPL")
-
-Step 2: Fetching Documents from Google Drive
-1. Developed a separate file for this task.
-2. Retrieved various file types from Google Drive using the GoogleDriveReader.
-3. Authenticated with Google and saved credentials.
-•	Downloaded the `credentials.json` file following the instructions (https://developers.google.com/drive/api/v3/quickstart/python).
-•	Copied and renamed the `credentials.json` file to `client_secrets.json` for use by PyDrive.
-•	Note: Both files are essentially the same but required with different names according to the libraries used.
-4. Followed the instructions in [base.py] 
-(https://github.com/run-llama/llama_index/blob/main/llama-index-integrations/readers/llama-index-readers-google/llama_index/readers/google/drive/base.py) for authentication.
-Run the quickstart.py .
-After running this token.json will be created. 
-
-6.	Then run quickstart.py to authenticate with google drive
-7.	After that you have to run User/main.py using uvicorn main:app --reload
-8.	Next run main.py
-9.	Wait for some time then you are ready to chat with your own documents 
-10.	Now you can ask your questions
-
-
-
-
 Added Features: Login/Signup
 Registration (Signup)
 Click on the "Register" button in the Streamlit app.
@@ -97,6 +62,41 @@ Streamlit communicates with the backend using RESTful API endpoints.
 OpenAI's GPT-3.5 Turbo powers the document search functionality.
 User authentication is implemented using JWT (JSON Web Tokens).
 The existing document search functionality remains intact, enhanced with user-specific interactions.
+
+
+
+Firstly, I thoroughly reviewed the project and understand what needs to be done and how to execute it. Afterward, I broke down the project into small tasks, which I am detailing stepwise.
+Step 1 : Setup instructions:
+1.	First clone the repo then create virtual environment in same directory.
+2.	Create a conda virtual environment of python version 3.10.0
+conda create -p venvIntell python==3.10.0
+conda activate path/of/venvIntell
+
+3.	Install the requirements.txt by using 
+pip install -r requirements.txt
+
+4.	Please create .env file to store openai API KEY
+
+
+Step 2: Fetching Documents from Google Drive
+1. Developed a separate file for this task.
+2. Retrieved various file types from Google Drive using the GoogleDriveReader.
+3. Authenticated with Google and saved credentials.
+•	Downloaded the `credentials.json` file following the instructions (https://developers.google.com/drive/api/v3/quickstart/python).
+•	Copied and renamed the `credentials.json` file to `client_secrets.json` for use by PyDrive.
+•	Note: Both files are essentially the same but required with different names according to the libraries used.
+4. Followed the instructions in [base.py] 
+(https://github.com/run-llama/llama_index/blob/main/llama-index-integrations/readers/llama-index-readers-google/llama_index/readers/google/drive/base.py) for authentication.
+Run the quickstart.py .
+After running this token.json will be created. 
+
+6.	Then run quickstart.py to authenticate with google drive
+7.	After that you have to run User/main.py using uvicorn main:app --reload
+8.	Next run main.py
+9.	Wait for some time then you are ready to chat with your own documents 
+10.	Now you can ask your questions
+
+
 
 
 
