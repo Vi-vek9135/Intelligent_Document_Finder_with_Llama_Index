@@ -14,3 +14,15 @@ torch
 transformers 
 python-pptx 
 Pillow
+fastapi
+"uvicorn[standard]"
+sqlalchemy
+pydantic
+psycopg2-binary
+pyjwt
+passlib
+python-jose
+llama-index-readers-microsoft-onedrive
+databases[postgresql]
+alembic 
+python-multipart
