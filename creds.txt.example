@@ -1,0 +1,23 @@
+{
+  "access_token": "your_dummy_access_token",
+  "client_id": "your_dummy_client_id",
+  "client_secret": "your_dummy_client_secret",
+  "refresh_token": "your_dummy_refresh_token",
+  "token_expiry": "2024-03-07T11:29:59Z",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "user_agent": null,
+  "revoke_uri": "https://oauth2.googleapis.com/revoke",
+  "id_token": null,
+  "id_token_jwt": null,
+  "token_response": {
+    "access_token": "your_dummy_access_token",
+    "expires_in": 3599,
+    "scope": "https://www.googleapis.com/auth/drive",
+    "token_type": "Bearer"
+  },
+  "scopes": ["https://www.googleapis.com/auth/drive"],
+  "token_info_uri": "https://oauth2.googleapis.com/tokeninfo",
+  "invalid": false,
+  "_class": "OAuth2Credentials",
+  "_module": "oauth2client.client"
+}
