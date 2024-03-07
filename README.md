@@ -1,27 +1,27 @@
 
-#Intelligent_Document_Finder_with_Llama_Index
-#├── User
-#│   ├── main.py            
-#│   ├── auth_bearer.py             
-#│   ├── database.py            
-#│   ├── models.py   
-#│   ├── schemas.py
-#│   └── utils.py
-#│
-#├── venvIntell
-#├── Automate_Data_Storage_and_Indexing.py
-#├── client_secrets.json
-#├── credentials.json
-#├── creds.txt
-#├── From_Drive_Link.py
-#├── Frontend_Part_By_Using_Streamlit.py
-#├── main.py
-#├── quickstart.py
-#├── realtime.py
-#├── requirements.txt
-#├── To_Fetch_Multiples_documents_from_drive.py
-#├── token.json
-#├── .env
+## Intelligent_Document_Finder_with_Llama_Index
+##├── User
+##│   ├── main.py            
+##│   ├── auth_bearer.py             
+##│   ├── database.py            
+##│   ├── models.py   
+##│   ├── schemas.py
+##│   └── utils.py
+##│
+##├── venvIntell
+##├── Automate_Data_Storage_and_Indexing.py
+##├── client_secrets.json
+##├── credentials.json
+##├── creds.txt
+##├── From_Drive_Link.py
+##├── Frontend_Part_By_Using_Streamlit.py
+##├── main.py
+##├── quickstart.py
+##├── realtime.py
+##├── requirements.txt
+##├── To_Fetch_Multiples_documents_from_drive.py
+##├── token.json
+##├── .env
 
 
                    
