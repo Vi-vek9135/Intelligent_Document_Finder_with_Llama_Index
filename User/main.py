@@ -28,22 +28,38 @@ class OurBaseModel(BaseModel):
     class Config:
         orm_mode = True
 
-@app.post("/register")
+
+
+
+
+
+@app.post("/register", response_model=schemas.TokenSchema)
 def register_user(user: schemas.UserCreate, session: Session = Depends(get_session)):
     existing_user = session.query(models.User).filter_by(email=user.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
 
-    encrypted_password =get_hashed_password(user.password)
+    encrypted_password = get_hashed_password(user.password)
 
-    new_user = models.User(username=user.username, email=user.email, password=encrypted_password )
+    new_user = models.User(username=user.username, email=user.email, password=encrypted_password)
 
     session.add(new_user)
     session.commit()
     session.refresh(new_user)
 
-    return {"message":"user created successfully"}
+    access_token = create_access_token(new_user.id)
+    refresh_token = create_refresh_token(new_user.id)
 
+    token_db = models.TokenTable(user_id=new_user.id, access_toke=access_token, refresh_toke=refresh_token, status=True)
+    session.add(token_db)
+    session.commit()
+    session.refresh(token_db)
+
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "message": "User created successfully"
+    }
 
 
 
@@ -84,29 +100,7 @@ def login(request: schemas.requestdetails, db: Session = Depends(get_session)):
 
 from auth_bearer import JWTBearer
 
-@app.get('/getusers')
-def getusers( dependencies=Depends(JWTBearer()),session: Session = Depends(get_session)):
-    user = session.query(models.User).all()
-    return user
 
-
-
-
-
-@app.post('/change-password')
-def change_password(request: schemas.changepassword, db: Session = Depends(get_session)):
-    user = db.query(models.User).filter(models.User.email == request.email).first()
-    if user is None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
-    
-    if not verify_password(request.old_password, user.password):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid old password")
-    
-    encrypted_password = get_hashed_password(request.new_password)
-    user.password = encrypted_password
-    db.commit()
-    
-    return {"message": "Password changed successfully"}
 
 
 
@@ -155,3 +149,7 @@ def token_required(func):
             return {'msg': "Token blocked"}
         
     return wrapper
+
+
+
+
