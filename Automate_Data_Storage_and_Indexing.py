@@ -1,97 +1,78 @@
-# from To_Fetch_Multiples_documents_from_drive import load_data
-# from llama_index.core import VectorStoreIndex
-# from llama_index.llms.openai import OpenAI
-# import streamlit as st
-# from llama_index.llms.openai import OpenAI
-# from dotenv import load_dotenv
-# import openai
-# import os
-
-# load_dotenv()  # Load the .env file
-
-# openai.api_key = os.getenv('OPENAI_API_KEY')
+# Importing necessary modules for data loading and indexing
+from To_Fetch_Multiples_documents_from_drive import load_data
+from llama_index.core import VectorStoreIndex
+from From_Drive_Link import returnfolder_id
 
 
-# # Model I am using is gpt-3.5-turbo
-# llm = OpenAI(temperature=0, model="gpt-3.5-turbo")
-
-
-
-# # This function is for importing the documents by fetching the documents from the drive.
-# @st.cache_resource(show_spinner=False)
-# def import_docs_by_fetching_documents_from_drive():
-#     with st.spinner(text="Loading and indexing your docs – hang tight! This should take 1-2 minutes."):
-#         docs = load_data(folder_id="1uCxh7jmHBzU0ZUNix901qq2qkjkYHJPL")
-#         index = VectorStoreIndex.from_documents(docs)
-#     return index
-
-
-
-# # This is for automating the data storage and indexing.  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import chromadb
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
-from llama_index.vector_stores.chroma import ChromaVectorStore
-from llama_index.core import StorageContext
+import streamlit as st
 from llama_index.llms.openai import OpenAI
-import openai
-
-
-
-
-import os
 from dotenv import load_dotenv
-
-load_dotenv()  # Load the .env file
-
-openai.api_key = os.getenv('OPENAI_API_KEY')  # Get the API key
-
-# print(api_key)  # Print the API key
+import openai
+import os
 
 
-# load some documents
-documents = SimpleDirectoryReader("./data").load_data()
 
-# initialize client, setting path to save data
-db = chromadb.PersistentClient(path="./chroma_db")
+# Load environment variables from the .env file
+load_dotenv()  
 
-# create collection
-chroma_collection = db.get_or_create_collection("quickstart")
 
-# assign chroma as the vector_store to the context
-vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
-storage_context = StorageContext.from_defaults(vector_store=vector_store)
+# Set the OpenAI API key from the environment variable
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
-# create your index
-index = VectorStoreIndex.from_documents(
-    documents, storage_context=storage_context
-)
 
-# create a query engine and query
-query_engine = index.as_query_engine()
-response = query_engine.query("What is Section 138?")
-print(response)
+# Initialize the LLM with the specified model and temperature
+llm = OpenAI(temperature=0, model="gpt-3.5-turbo")
 
 
 
 
-# This is for the data storage and indexing by using the chroma db.
+
+
+
+
+
+
+
+
+
+
+# Define a function to import documents by fetching them from Google Drive
+# The function is cached to avoid reloading and reindexing documents on every call
+@st.cache_resource(show_spinner=False)
+def import_docs_by_fetching_documents_from_drive(folder_id):
+
+    # Display a spinner in the Streamlit app to indicate that documents are being loaded and indexed
+    with st.spinner(text="Loading and indexing your docs – hang tight! This should take 1-2 minutes."):
+
+        # folder_id =  returnfolder_id()
+        # Load documents from the specified Google Drive folder ID
+        docs = load_data(folder_id=f"{folder_id}")
+        # docs = load_data(folder_id="1TcqWyNyxkjKmaLkSfl5yLBeB5IlJiGXa")
+
+        # Create a VectorStoreIndex from the loaded documents for efficient searching
+        index = VectorStoreIndex.from_documents(docs)
+    return index
+
+
+
+# This is for automating the data storage and indexing.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

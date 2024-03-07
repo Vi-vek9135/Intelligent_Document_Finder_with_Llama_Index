@@ -1,0 +1,11 @@
+{
+  "token": "your_dummy_token_here",
+  "refresh_token": "your_dummy_refresh_token_here",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "client_id": "your_dummy_client_id_here",
+  "client_secret": "your_dummy_client_secret_here",
+  "scopes": ["https://www.googleapis.com/auth/drive"],
+  "universe_domain": "googleapis.com",
+  "account": "",
+  "expiry": "2024-03-07T11:09:26.643147Z"
+}
