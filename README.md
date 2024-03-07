@@ -1,4 +1,4 @@
-.
+'''.
 ├── User
     ├── main.py            
     ├── auth_bearer.py             
@@ -21,6 +21,7 @@
 ├── To_Fetch_Multiples_documents_from_drive.py
 ├── token.json
 ├── .env
+'''
                    
 
 
@@ -64,9 +65,38 @@ Run the quickstart.py .
 After running this token.json will be created. 
 
 6.	Then run quickstart.py to authenticate with google drive
-7.	Next run main.py
-8.	Wait for some time then you are ready to chat with your own documents 
-9.	Now you can ask your questions 
+7.	After that you have to run User/main.py using uvicorn main:app --reload
+8.	Next run main.py
+9.	Wait for some time then you are ready to chat with your own documents 
+10.	Now you can ask your questions
+
+
+
+
+Added Features: Login/Signup
+Registration (Signup)
+Click on the "Register" button in the Streamlit app.
+Fill in the registration form with a unique username, email, and password.
+Click the "Register" button to create a new user account.
+Upon successful registration, you will be automatically logged in.
+
+Login
+Click on the "Login" button in the Streamlit app.
+Enter your registered email and password.
+Click the "Login" button.
+Upon successful login, you will have access to the document search functionality.
+
+User can ask any queries by entering their folder drive link and if user are using other's drive link then that link be public
+
+
+Logout
+Click on the "Logout" button to log out of your user account.
+Project Integration
+The FastAPI backend handles user registration, login, and logout, storing user data in a SQLite database.
+Streamlit communicates with the backend using RESTful API endpoints.
+OpenAI's GPT-3.5 Turbo powers the document search functionality.
+User authentication is implemented using JWT (JSON Web Tokens).
+The existing document search functionality remains intact, enhanced with user-specific interactions.
 
 
 
