@@ -15,7 +15,7 @@ transformers
 python-pptx 
 Pillow
 fastapi
-"uvicorn[standard]"
+uvicorn
 sqlalchemy
 pydantic
 psycopg2-binary
