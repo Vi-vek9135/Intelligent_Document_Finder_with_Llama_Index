@@ -1,6 +1,6 @@
 # Importing the index from the Automate_Data_Storage_and_Indexing.py file and the OpenAI class from llama_index.llms.openai
 
-from Automate_Data_Storage_and_Indexing import import_docs_by_fetching_documents_from_drive 
+# from Automate_Data_Storage_and_Indexing import import_docs_by_fetching_documents_from_drive 
 from llama_index.llms.openai import OpenAI
 # from To_Fetch_Metadata_Of_File import metadata  (For testing purpose)
 import requests
@@ -13,7 +13,12 @@ from dotenv import load_dotenv
 import openai
 import os
 
-from From_Drive_Link import returnfolder_id
+# from From_Drive_Link import returnfolder_id
+# from test import get_folder_id
+
+from Onedrive.Testing_Of_Llamahub import return_docs_from_onedrive
+from drive_testing import load_data_from_root
+from llama_index.core import VectorStoreIndex
 
 
 # Load environment variables from the .env file
@@ -171,11 +176,33 @@ def main():
     if "access_token" in st.session_state:
         st.title("Document Search")
 
+
+            # Create buttons for OneDrive and Google Drive
+        drive_option = st.radio("Select Drive", ["OneDrive", "Google Drive"])
+
+        if drive_option == "OneDrive":
+            # Call the function to fetch documents from OneDrive
+            documents = return_docs_from_onedrive()
+
+        elif drive_option == "Google Drive":
+            # Call the function to fetch documents from Google Drive
+            documents = load_data_from_root()
+
+        # Check if documents were fetched successfully
+        if documents:
+            # Import the document index by fetching documents from the selected drive
+            # index = import_docs_by_fetching_documents_from_drive(documents)
+
+            index = VectorStoreIndex.from_documents(documents)
+
+
+
         # Get the folder ID from Google Drive link
-        folder_id = returnfolder_id()
-        if folder_id is not None:
+        # folder_id = returnfolder_id()
+        # folder_id = get_folder_id()
+        # if folder_id is not None:
             # Import the document index by fetching documents from Google Drive
-            index = import_docs_by_fetching_documents_from_drive(folder_id)
+            # index = import_docs_by_fetching_documents_from_drive(folder_id)
 
 
             # Initialize the chat engine if it doesn't exist in the session state
