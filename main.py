@@ -10,3 +10,4 @@ process = subprocess.Popen(['streamlit', 'run', streamlit_script_path])
 
 # If you need to stop the Streamlit server programmatically, you can use:
 # process.terminate()
+

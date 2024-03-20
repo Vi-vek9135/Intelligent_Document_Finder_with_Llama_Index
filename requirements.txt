@@ -15,7 +15,7 @@ transformers
 python-pptx 
 Pillow
 fastapi
-"uvicorn[standard]"
+uvicorn
 sqlalchemy
 pydantic
 psycopg2-binary
@@ -26,3 +26,16 @@ llama-index-readers-microsoft-onedrive
 databases[postgresql]
 alembic 
 python-multipart
+msgraph-core
+azure-identity
+msgraph-core==1.0.0
+msgraph-sdk
+requests-oauthlib
+msal
+Office365-REST-Python-Client
+flake8
+black
+isort
+requests
+nbconvert
+

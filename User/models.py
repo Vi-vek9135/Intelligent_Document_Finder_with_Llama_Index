@@ -6,11 +6,13 @@ import datetime
 
 
 
-
+# For Testing Purpose
 # def create_tables(engine):
 #     Base.metadata.create_all(engine)
 
 
+
+# User Model
 class User(Base):
     __tablename__ = 'User'
     id = Column(Integer, primary_key=True)
@@ -19,7 +21,7 @@ class User(Base):
     password = Column(String(100), nullable=False)
 
 
-
+# Token Model
 class TokenTable(Base):
     __tablename__ = "token"
     user_id = Column(Integer)
