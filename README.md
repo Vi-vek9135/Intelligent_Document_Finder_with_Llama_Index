@@ -57,7 +57,7 @@ Enter your registered email and password.
 Click the "Login" button.
 Upon successful login, you will have access to the document search functionality.
 
-User can ask any queries by entering their folder drive link and if user are using other's drive link then that link be public
+User can ask any queries by entering selecting their drive (Google drive or OneDrive) 
 
 
 Logout
@@ -81,26 +81,39 @@ conda activate path/of/venvIntell
 3.	Install the requirements.txt by using 
 pip install -r requirements.txt
 
-4.	Please create .env file to store openai API KEY
+4.	Please create .env file to store openai API KEY and client_id
 
 
-Step 2: Fetching Documents from Google Drive
-1. Developed a separate file for this task.
-2. Retrieved various file types from Google Drive using the GoogleDriveReader.
-3. Authenticated with Google and saved credentials.
-•	Downloaded the `credentials.json` file following the instructions (https://developers.google.com/drive/api/v3/quickstart/python).
-•	Copied and renamed the `credentials.json` file to `client_secrets.json` for use by PyDrive.
-•	Note: Both files are essentially the same but required with different names according to the libraries used.
-4. Followed the instructions in [base.py] 
-(https://github.com/run-llama/llama_index/blob/main/llama-index-integrations/readers/llama-index-readers-google/llama_index/readers/google/drive/base.py) for authentication.
-Run the quickstart.py .
-After running this token.json will be created. 
+Step 2: Fetching Documents from Google Drive and One Drive
+This is for Google Drive
+      1. Developed a separate file for this task.
+      2. Retrieved various file types from Google Drive using the GoogleDriveReader.
+      3. Authenticated with Google and saved credentials.
+      •	Downloaded the `credentials.json` file following the instructions (https://developers.google.com/drive/api/v3/quickstart/python).
+      •	Copied and renamed the `credentials.json` file to `client_secrets.json` for use by PyDrive.
+      •	Note: Both files are essentially the same but required with different names according to the libraries used.
+      4. Followed the instructions in [base.py] 
+      (https://github.com/run-llama/llama_index/blob/main/llama-index-integrations/readers/llama-index-readers-google/llama_index/readers/google/drive/base.py) for authentication.
+      Run the quickstart.py .
+      After running this token.json will be created. 
+      6.	Then run quickstart.py to authenticate with google drive
 
-6.	Then run quickstart.py to authenticate with google drive
-7.	After that you have to run User/main.py using uvicorn main:app --reload
-8.	Next run main.py
-9.	Wait for some time then you are ready to chat with your own documents 
-10.	Now you can ask your questions
+This is for Onedrive
+      1. Create account in https://entra.microsoft.com/
+      2. Then register an application with following below instructions
+          User Authentication: Browser based authentication:
+              You need to create a app registration in Microsoft Entra (formerly Azure Active Directory)
+              For interactive authentication to work, a browser is used to authenticate, hence the registered application should have a redirect URI set to 'https://localhost' under                   mobile and native applications.
+              This mode of authentication is not suitable for CI/CD or other background service scenarios where manual authentication isn't feasible.
+              API Permission required for registered app:
+              Microsoft Graph --> Delegated Permission -- > Files.Read.All
+      3. Create separate file for loading data from onedrive
+
+Step 3: Import the docs accordingly
+Step 4: After that you have to run run.py(main file)
+Step 5: Wait for some time then after login you will see two option one for onedrive and one for google drive (Select accordingly)
+Step 6: tHEN you are ready to use this applicatiion
+Step 7: Now you can ask your questions
 
 
 
