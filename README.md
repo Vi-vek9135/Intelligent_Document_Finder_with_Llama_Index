@@ -1,7 +1,7 @@
 
 ## Intelligent_Document_Finder_with_Llama_Index (File Structure)
 # ├── Onedrive
-# |   ├── Testing_Of_Llamahub.py    
+# │   ├── Testing_Of_Llamahub.py    
 # ├── User
 # │   ├── main.py            
 # │   ├── auth_bearer.py             
