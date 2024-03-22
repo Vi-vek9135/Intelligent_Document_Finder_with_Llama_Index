@@ -1,14 +1,3 @@
-# from llama_index.readers.microsoft_onedrive import OneDriveReader
-
-# # User Authentication flow: Replace client id with your own id
-# loader = OneDriveReader(client_id="acdc67b7-9781-4e11-afb9-0c8f4180de9b")
-
-# # APP Authentication flow: NOT SUPPORTED By Microsoft
-
-# #### Get all documents including subfolders.
-# documents = loader.load_data()
-
-# print(documents)
 
 
 
@@ -36,7 +25,7 @@ def return_docs_from_onedrive():
     documents = loader.load_data(mime_types=mime_types)
     return documents
 
-# print(documents)
+
 
 
 
