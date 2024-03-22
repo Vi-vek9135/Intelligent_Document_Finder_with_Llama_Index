@@ -1,6 +1,6 @@
 # Importing the index from the Automate_Data_Storage_and_Indexing.py file and the OpenAI class from llama_index.llms.openai
 
-# from Automate_Data_Storage_and_Indexing import import_docs_by_fetching_documents_from_drive 
+from Automate_Data_Storage_and_Indexing import import_docs_by_fetching_documents_from_drive , import_docs_by_fetching_documents_from_One_drive
 from llama_index.llms.openai import OpenAI
 # from To_Fetch_Metadata_Of_File import metadata  (For testing purpose)
 import requests
@@ -13,12 +13,10 @@ from dotenv import load_dotenv
 import openai
 import os
 
-# from From_Drive_Link import returnfolder_id
-# from test import get_folder_id
 
-from Onedrive.Testing_Of_Llamahub import return_docs_from_onedrive
+from One_Drive_Loader.Testing_Of_Llamahub import return_docs_from_onedrive
 from drive_testing import load_data_from_root
-from llama_index.core import VectorStoreIndex
+
 
 
 # Load environment variables from the .env file
@@ -50,8 +48,9 @@ if "messages" not in st.session_state.keys():
 
 # Function to perform document search and display the results
 
-def perform_document_search(prompt, chat_engine):
+def perform_document_search(prompt):
     with st.spinner("Thinking..."):
+        chat_engine = st.session_state.index.as_chat_engine(chat_mode="condense_question", verbose=True)
         response = chat_engine.chat(prompt)
         st.write(response.response)
 
@@ -102,6 +101,24 @@ def logout():
     st.write("You have been logged out.")
 
 
+@st.cache_resource(show_spinner=False)
+def load_and_index_documents(drive_option):
+    with st.spinner(text="Loading your docs – hang tight! This should take 2-3 minutes."):
+        if drive_option == "OneDrive":
+            documents = return_docs_from_onedrive()
+            if documents:
+                index = import_docs_by_fetching_documents_from_One_drive(documents)
+        elif drive_option == "Google Drive":
+            documents = load_data_from_root()
+            if documents:
+                index = import_docs_by_fetching_documents_from_drive(documents)
+        else:
+            index = None
+        return index
+
+
+
+
 
 
 
@@ -127,10 +144,7 @@ def main():
             submitted = st.form_submit_button("Register")
             if submitted:
                 response = register_user(username, email, password)
-                # if "message" in response:
-                #     st.write(response["message"])
-                # else:
-                #     st.write("Registration failed")
+               
                 if "access_token" in response:
                     st.session_state["access_token"] = response["access_token"]
                     st.write("Registration successful! You are now logged in.")
@@ -177,51 +191,30 @@ def main():
         st.title("Document Search")
 
 
-            # Create buttons for OneDrive and Google Drive
-        drive_option = st.radio("Select Drive", ["OneDrive", "Google Drive"])
-
-        if drive_option == "OneDrive":
-            # Call the function to fetch documents from OneDrive
-            documents = return_docs_from_onedrive()
-
-        elif drive_option == "Google Drive":
-            # Call the function to fetch documents from Google Drive
-            documents = load_data_from_root()
-
-        # Check if documents were fetched successfully
-        if documents:
-            # Import the document index by fetching documents from the selected drive
-            # index = import_docs_by_fetching_documents_from_drive(documents)
-
-            index = VectorStoreIndex.from_documents(documents)
 
 
+        if "index" not in st.session_state:
+            drive_option = st.radio("Select Drive", ["OneDrive", "Google Drive"])
+            st.session_state.index = load_and_index_documents(drive_option)
 
-        # Get the folder ID from Google Drive link
-        # folder_id = returnfolder_id()
-        # folder_id = get_folder_id()
-        # if folder_id is not None:
-            # Import the document index by fetching documents from Google Drive
-            # index = import_docs_by_fetching_documents_from_drive(folder_id)
+        # Prompt for user input and save it to the chat history
+        if prompt := st.chat_input("Your question"):
+            st.session_state.messages.append({"role": "user", "content": prompt})
+
+        # Display the prior chat messages
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.write(message["content"])
+
+        # If the last message is not from the assistant, generate a new response
+        if st.session_state.messages[-1]["role"] != "assistant":
+            with st.chat_message("assistant"):
+                perform_document_search(prompt)
 
 
-            # Initialize the chat engine if it doesn't exist in the session state
-            if "chat_engine" not in st.session_state.keys():
-                st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+        
 
-            # Prompt for user input and save it to the chat history
-            if prompt := st.chat_input("Your question"):
-                st.session_state.messages.append({"role": "user", "content": prompt})
-
-            # Display the prior chat messages
-            for message in st.session_state.messages:
-                with st.chat_message(message["role"]):
-                    st.write(message["content"])
-
-            # If the last message is not from the assistant, generate a new response
-            if st.session_state.messages[-1]["role"] != "assistant":
-                with st.chat_message("assistant"):
-                    perform_document_search(prompt, st.session_state.chat_engine)
+        
     
 
 
@@ -236,8 +229,4 @@ def main():
 # Start the Streamlit app
 if __name__ == "__main__":
     main()
-
-
-
-
 
